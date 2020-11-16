@@ -22,37 +22,47 @@ export function LoginView(props) {
       <h2>Welcome to FlixNET</h2>
 
       <Form className="login-form">
-        <Form.Group controlId="formBasicUsername" className="login-item m-auto">
+        <Form.Group 
+          controlId="formBasicUsername" 
+          className="login-item m-auto">
           <Form.Label>Username: </Form.Label>
-          <Form.Control type="text" value={username} onChange={e => setUsername(e.target.value)} placeholder="Enter Username" />
+          <Form.Control 
+            type="text" 
+            value={username} onChange={e => setUsername(e.target.value)} placeholder="Enter Username" 
+          />
         </Form.Group>
 
-        <Form.Group controlId="formBasicPassword" className="login-item m-auto">
+        <Form.Group 
+          controlId="formBasicPassword" 
+          className="login-item m-auto">
           <Form.Label>Password: </Form.Label>
-          <Form.Control type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Enter Password" />
+          <Form.Control 
+            type="password" 
+            value={password} 
+            onChange={e => setPassword(e.target.value)} 
+            placeholder="Enter Password" 
+          />
         </Form.Group>
       </Form>
 
       <div className="login-buttons">
-        <Button onClick={handleSubmit} variant="dark" type="submit">Login</Button>
-        <Button variant="secondary">Register</Button>
+        <Button 
+          onClick={handleSubmit} 
+          variant="dark" 
+          type="submit" 
+          className="button-login mx-auto"
+        >
+          Login
+        </Button>
+        
+        <Button 
+          variant="secondary" 
+          className="button-register ml-1"
+        >
+          Register
+        </Button>
       </div>
     </div>
-    // <form>
-    //   <label>
-    //     Username:
-    //     <input type="text" 
-    //            value={username} 
-    //            onChange={e => setUsername(e.target.value)} />
-    //   </label>
-    //   <label>
-    //     Password:
-    //     <input type="password" 
-    //            value={password} 
-    //            onChange={e => setPassword(e.target.value)} />
-    //   </label>
-    //   <button type="button" onClick={handleSubmit}>Submit</button>
-    // </form>
   );
 }
 
