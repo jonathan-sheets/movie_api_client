@@ -34347,22 +34347,7 @@ function LoginView(props) {
   }, "Login"), _react.default.createElement(_Button.default, {
     variant: "secondary",
     className: "button-register ml-1"
-  }, "Register"))) // <form>
-  //   <label>
-  //     Username:
-  //     <input type="text" 
-  //            value={username} 
-  //            onChange={e => setUsername(e.target.value)} />
-  //   </label>
-  //   <label>
-  //     Password:
-  //     <input type="password" 
-  //            value={password} 
-  //            onChange={e => setPassword(e.target.value)} />
-  //   </label>
-  //   <button type="button" onClick={handleSubmit}>Submit</button>
-  // </form>
-  ;
+  }, "Register")));
 }
 
 LoginView.propTypes = {
@@ -35153,7 +35138,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54156" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57617" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
