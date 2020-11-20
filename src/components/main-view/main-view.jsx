@@ -1,14 +1,21 @@
 import React from 'react';
 import axios from 'axios';
-
+import PropTypes from 'prop-types';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
+import { ProfileView } from '../profile-view/profile-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
-
+import { DirectorView } from '../director-view/director-view';
+import { UpdateView } from '../update-view/update-view';
+import { GenreView } from '../genre-view/genre-view';
+import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 import './main-view.scss';
 
 
@@ -18,15 +25,15 @@ export class MainView extends React.Component {
     super();
     // Initial state is set to null
     this.state = {
-      movies: null,
-      selectedMovie: null,
+      movies: [],
       user: null
     };
   }
   
-  // One of the "hooks" available in a React Component
-  componentDidMount() {
-    axios.get('https://flixnet-2020.herokuapp.com/movies')
+  getMovies(token) {
+    axios.get('https://flixnet-2020.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}`}
+    })
     .then(response => {
       // Assign the result to the state
       this.setState({
@@ -37,51 +44,190 @@ export class MainView extends React.Component {
       console.log(error);
     });
   }
-  /* When a movie is clicked this function is invoked and updates the state of the `selectedMovie` *property to that movie */
-  onMovieClick(movie) {
-    this.setState({
-      selectedMovie: movie
-    });
-  }
-  /* When a user successfully logs in, this function updates the `user` property in state to that *particular user */
-  onLoggedIn(user) {
-    this.setState({
-      user
-    });
+
+  // One of the "hooks" available in a React Component
+  componentDidMount() {
+    let accessToken = localStorage.getItem('token');
+    if (accessToken !== null) {
+      this.setState({
+        user: localStorage.getItem('user')
+      });
+      this.getMovies(accessToken);
+    }
   }
 
-  setInitial() {
+  
+  /* When a movie is clicked this function is invoked and updates the state of the `selectedMovie` *property to that movie */
+  // onMovieClick(movie) {
+  //   this.setState({
+  //     selectedMovie: movie
+  //   });
+  // }
+  
+  onLoggedIn(authData) {
+    console.log(authData);
     this.setState({
-      selectedMovie: null
+      user: authData.user.Username
     });
+
+    localStorage.setItem('token', authData.token);
+    localStorage.setItem('user', authData.user.Username);
+    this.getMovies(authData.token);
+  }
+
+  logOut() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.setState({
+      user: null,
+    });
+    console.log('logout successful');
+    alert('You have been successfully logged out');
+    window.open('/', '_self');
   }
 
   render() {
     // If the state isn't initialized, this will throw on runtime
     // before the data is initally loaded
-    const { movies, selectedMovie, user } = this.state;
+    const { movies, user } = this.state;
 
     /* If there is no user, the LoginView is rendered.  If there is a user logged in, the user details are *passed as a prop to the LoginView */
 
-    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
     // Before the movies have been loaded
     if (!movies) return <div className="main-view"/>;
 
     return (
-      <div className="main-view">
-        <Container>
-          <Row>
-            {this.state.selectedMovie
-            ? <MovieView movie={this.state.selectedMovie} onClick={() => this.setInitial()}/>
-            : movies.map(movie => (
-              <Col key={movie._id} className="d-flex justify-content-around">
-            <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)} />
-              </Col>
-            ))
-            }
-          </Row>
-        </Container>
+      // <div>
+      //   <nav className="nav">
+          
+      //     <Button className="nav-item"
+      //             variant="secondary"
+      //             onClick={() => this.logOut()}
+      //     >
+      //       Logout
+      //     </Button>
+      //   </nav>
+      <Router>
+      <div className="main-view text-center container-fluid main-view-styles">
+        <Navbar
+          sticky="top"
+          bg="light"
+          expand="lg"
+          className="mb-3 shadow-sm p-3 mb-5"
+        >
+          <Navbar.Brand
+            href="http://localhost:1234"
+            className="navbar-brand"
+          >
+          FlixNET
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse
+            className="justify-content-end"
+            id="basic-navbar-nav"
+          >
+            {!user ? (
+              <ul>
+                <Link to={`/`}>
+                  <Button variant="link">Sign In</Button>
+                </Link>
+                <Link to={`/register`}>
+                  <Button variant="link">Register</Button>
+                </Link>
+              </ul>
+            ) : (
+              <ul>
+                <Link to={`/`}>
+                  <Button variant="link" onClick={() => this.logOut()}>
+                    Sign Out
+                  </Button>
+                </Link>
+                <Link to={`/users/${user}`}>
+                  <Button variant="link">My Account</Button>
+                </Link>
+                <Link to={`/`}>
+                  <Button variant="link">Movies</Button>
+                </Link>
+                <Link to={`/about`}>
+                  <Button variant="link">About</Button>
+                </Link>
+              </ul>
+            )}
+          </Navbar.Collapse>
+        </Navbar>
+
+        <Route 
+          exact path="/" 
+          render={() => {
+            if (!user) 
+              return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+              return (
+                <div className="row d-flex mt-4 ml-2">
+                  {movies.map(m => <MovieCard key={m._id} movie={m}/>
+                )}
+                </div>
+            );
+          }}
+        />
+        <Route 
+          path="/register" 
+          render={() => <RegistrationView />} 
+        />
+
+        <Route
+          exact
+          path="/users/"
+          render={() => window.open("/", "_self")}
+        />
+          
+          <Route
+            exact
+            path="/users/:userId"
+            render={() => <ProfileView movies={movies} />}
+          />
+
+          <Route
+            path="/update/:userId"
+            render={() => {
+              return <UpdateView />;
+            }}
+          />
+
+          <Route
+            path="/movies/:movieId"
+            render={({ match }) => (
+              <MovieView
+                movie={movies.find((m) => m._id === match.params.movieId)}
+              />
+            )}
+          />
+
+        <Route
+          path="/genres/:name"
+          render={({ match }) => (
+            <GenreView
+              genre={movies.find(
+                (m) => m.Genre.Name === match.params.name
+              )}
+              movies={movies}
+            />
+          )}
+        />
+
+        <Route
+          path="/directors/:name"
+          render={({ match }) => (
+            <DirectorView
+              director={movies.find(
+                (m) => m.Director.Name === match.params.name
+              )}
+              movies={movies}
+            />
+          )}
+        />
       </div>
+      </Router>
+      // </div>
     );
   }
 }

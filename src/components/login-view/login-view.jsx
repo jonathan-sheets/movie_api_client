@@ -1,69 +1,111 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { RegistrationView } from '../registration-view/registration-view';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Container from 'react-bootstrap/Container';
 import './login-view.scss';
 
 export function LoginView(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
 
+  const [ usernameErr, setUsernameErr ] = useState({});
+  const [ passwordErr, setPasswordErr ] = useState({});
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
-    // Send a request to the server for authentication then call props.onLoggedIn(username)
-    props.onLoggedIn(username);
+    const isValid = formValidation();
+    if (isValid) {
+    // Send a request to the server for authentication
+    axios.post('https://flixnet-2020.herokuapp.com/login', {
+      Username: username,
+      Password: password
+    })
+    .then(response => {
+      const data = response.data;
+      props.onLoggedIn(data);
+    })
+    .catch(e => {
+      console.log('no such user')
+      alert('Invalid username or password');
+    });
   };
+}
+
+  const formValidation = () => {
+    const usernameErr = {};
+    const passwordErr = {};
+    let isValid = true;
+
+    if (username.trim().length < 1) {
+      usernameErr.usernameMissing = 'Username is required to login.';
+      isValid = false;
+    }
+    if (username.trim().length < 5 && username.trim().length >= 1) {
+      usernameErr.usernameShort = 'Username must be at least 5 characters.';
+      isValid = false;
+    }
+    if (password.trim().length < 1) {
+      passwordErr.passwordMissing = 'Password is required.';
+      isValid = false;
+    }
+
+    setUsernameErr(usernameErr);
+    setPasswordErr(passwordErr);
+    return isValid;
+  }
 
   return (
-    <div className="login-view">
+    <Container>
       <h2>Welcome to FlixNET</h2>
 
       <Form className="login-form">
-        <Form.Group 
-          controlId="formBasicUsername" 
-          className="login-item m-auto">
+        <Form.Group controlId="formBasicUsername">
           <Form.Label>Username: </Form.Label>
           <Form.Control 
             type="text" 
-            value={username} onChange={e => setUsername(e.target.value)} placeholder="Enter Username" 
+            placeholder="Enter username"
+            required
+            value={username} onChange={e => setUsername(e.target.value)}  
           />
+          {Object.keys(usernameErr).map((key) => {
+            return <div key={key} style={{ color: 'red' }}>{usernameErr[key]}</div>
+          })}
         </Form.Group>
 
-        <Form.Group 
-          controlId="formBasicPassword" 
-          className="login-item m-auto">
+        <Form.Group controlId="formBasicPassword">
           <Form.Label>Password: </Form.Label>
           <Form.Control 
             type="password" 
+            required
+            placeholder="Enter password"
             value={password} 
             onChange={e => setPassword(e.target.value)} 
-            placeholder="Enter Password" 
           />
+          {Object.keys(passwordErr).map((key) => {
+            return <div key={key} style={{ color: 'red' }}>{passwordErr[key]}</div>
+          })}
         </Form.Group>
+        <Button
+          variant="dark"
+          type="submit"
+          onClick={handleSubmit}
+        >
+          Sign In
+        </Button>
+        <Link to={`/register`}>
+          <Button
+            variant="secondary"
+          >
+          Sign Up
+          </Button>
+        </Link>
       </Form>
-
-      <div className="login-buttons">
-        <Button 
-          onClick={handleSubmit} 
-          variant="dark" 
-          type="submit" 
-          className="button-login mx-auto"
-        >
-          Login
-        </Button>
-        
-        <Button 
-          variant="secondary" 
-          className="button-register ml-1"
-        >
-          Register
-        </Button>
-      </div>
-    </div>
-  );
+    </Container>
+  )
 }
 
 LoginView.propTypes = {

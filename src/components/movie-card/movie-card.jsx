@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+
+import { Link } from "react-router-dom";
+
 import './movie-card.scss';
 
 export class MovieCard extends React.Component {
@@ -9,7 +12,7 @@ export class MovieCard extends React.Component {
     // This is given to the <MovieCard/> component by the outer world
     // Which, in this case, is `MainView`, as `MainView` is what's connected
     // to your database via the movies endpoint of your API
-    const { movie, onClick } = this.props;
+    const { movie } = this.props;
 
     return (
       // 
@@ -18,7 +21,9 @@ export class MovieCard extends React.Component {
         <Card.Body>
           <Card.Title>{movie.Title}</Card.Title>
           <Card.Text>{movie.Description}</Card.Text>
-          <Button onClick={() => onClick(movie)} variant="dark">Open</Button>
+          <Link to={`/movies/${movie._id}`}>
+          <Button variant="dark">Details</Button>
+          </Link>
         </Card.Body>
       </Card>
     );
@@ -40,6 +45,5 @@ MovieCard.propTypes = {
       Birth: PropTypes.string.isRequired,
       Death: PropTypes.string
     })
-  }).isRequired,
-  onClick: PropTypes.func.isRequired
+  })
 };

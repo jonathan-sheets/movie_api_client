@@ -1,60 +1,112 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-
+// import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
 import './registration-view.scss';
+import axios from 'axios';
 
 export function RegistrationView(props) {
-  const [Username, setUsername] = useState('');
-  const [Password, setPassword] = useState('');
-  const [Email, setEmail] = useState('');
-  const [BirthDate, setBirthDate] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [birthday, setBirthday] = useState('');
 
   const handleRegister = (e) => {
     e.preventDefault();
-    console.log(Username, Password, Email, BirthDate);
-    props.onLoggedIn(Username);
+    axios.post('https://flixnet-2020.herokuapp.com/users', {
+      Username: username,
+      Password: password,
+      Email: email,
+      Birthday: birthday
+    })
+    .then(response => {
+      const data = response.data;
+      console.log(data);
+      window.open('/', '_self'); // '_self' is necessary so the page will open in the current tab
+      alert('You may now log in');
+    })
+    .catch(e => {
+      console.log('error registering the user')
+    });
   };
 
   return (
-    <div className="registration-view">
-      <h3>Sign Up</h3>
-
+    <Container>
+      <h3>Create an account</h3>
       <Form className="registration-form">
-        <Form.Group controlId="formBasicUsername" className="registration-item">
-          <Form.Label>Create Username: </Form.Label>
-          <Form.Control type="text" placeholder="Username" value={Username} onChange={(e) => setUsername(e.target.value)} />
-          <Form.Text className="text-muted">Must be alphanumeric and contain at least 5 characters</Form.Text>
+        <Form.Group controlId="formBasicUsername">
+          <Form.Label>Pick a Username: </Form.Label>
+          <Form.Control 
+            type="text" 
+            placeholder="Username" 
+            required
+            value={username} 
+            onChange={(e) => setUsername(e.target.value)} 
+          />
+          <Form.Text 
+            className="text-muted"
+            >Must be alphanumeric and contain at least 5 characters
+          </Form.Text>
         </Form.Group>
 
-        <Form.Group controlId="formBasicPassword" className="registration-item">
+        <Form.Group controlId="formBasicPassword">
           <Form.Label>Choose a Password: </Form.Label>
-          <Form.Control type="text" placeholder="Password" value-={Password} onChange={(e) => setPassword(e.target.value)} />
-          <Form.Text className="text-muted"></Form.Text>
+          <Form.Control 
+            type="text" 
+            placeholder="Password" 
+            required
+            value-={password} 
+            onChange={(e) => setPassword(e.target.value)} 
+          />
+          <Form.Text 
+            className="text-muted"
+          >Password is required.
+          </Form.Text>
         </Form.Group>
 
-        <Form.Group controlId="formBasicEmail" className="registration-item">
+        <Form.Group controlId="formBasicEmail">
           <Form.Label>Enter Email Address: </Form.Label>
-          <Form.Control type="text" placeholder="example@gmail.com" value={Email} onChange={(e) => setEmail(e.target.value)} />
+          <Form.Control 
+            type="text" 
+            placeholder="example@gmail.com" 
+            required
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)} 
+          />
+          <Form.Text 
+            className="text-muted"
+          >Must be a valid email address.
+          </Form.Text>
         </Form.Group>
 
-        <Form.Group controlId="formBasicBirthdate" className="registration-item">
+        <Form.Group controlId="formBasicBirthday">
           <Form.Label>Enter Date of Birth:</Form.Label>
-          <Form.Control type="text" placeholder="YYYY/MM/DD" value={BirthDate} onChange={(e) => setBirthDate(e.target.value)} />
+          <Form.Control 
+            type="date" 
+            placeholder="MM/DD/YYYY" 
+            required
+            value={birthday} 
+            onChange={(e) => setBirthday(e.target.value)} 
+          />
         </Form.Group>
 
-        <Button type="submit" variant="primary" className="button-registration" onClick={handleRegister}>Submit</Button>
-      </Form>
-    </div>
-  )
-};
+        <Button type="submit" 
+                variant="dark" 
+                className="button-registration" 
+                onClick={handleRegister}
+        >
+        Submit
+        </Button>
 
-RegistrationView.propTypes = {
-  user: PropTypes.shape({
-    Username: PropTypes.string.isRequired,
-    Password: PropTypes.string.isRequired,
-    Email: PropTypes.string.isRequired,
-    Birthday: PropTypes.instanceOf(Date).isRequired
-  })
+        <div className="current-user">
+          Already have an account?
+        </div>
+        <Link to={`/`}>
+          <Button variant="secondary">Sign In</Button>
+        </Link>
+      </Form>
+    </Container>
+  )
 };
