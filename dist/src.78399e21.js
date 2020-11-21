@@ -37340,11 +37340,14 @@ function LoginView(props) {
     return isValid;
   };
 
-  return _react.default.createElement(_Container.default, null, _react.default.createElement("h2", null, "Welcome to FlixNET"), _react.default.createElement(_Form.default, {
+  return _react.default.createElement(_Container.default, null, _react.default.createElement("div", {
+    className: "login-heading"
+  }, _react.default.createElement("h2", null, "Welcome to FlixNET")), _react.default.createElement("br", null), _react.default.createElement(_Form.default, {
     className: "login-form"
   }, _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicUsername"
   }, _react.default.createElement(_Form.default.Label, null, "Username: "), _react.default.createElement(_Form.default.Control, {
+    className: "form-field",
     type: "text",
     placeholder: "Enter username",
     required: true,
@@ -37362,6 +37365,7 @@ function LoginView(props) {
   })), _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicPassword"
   }, _react.default.createElement(_Form.default.Label, null, "Password: "), _react.default.createElement(_Form.default.Control, {
+    className: "form-field",
     type: "password",
     required: true,
     placeholder: "Enter password",
@@ -37377,14 +37381,16 @@ function LoginView(props) {
       }
     }, passwordErr[key]);
   })), _react.default.createElement(_Button.default, {
+    className: "sign-in-button",
     variant: "dark",
     type: "submit",
     onClick: handleSubmit
   }, "Sign In"), _react.default.createElement(_reactRouterDom.Link, {
     to: "/register"
   }, _react.default.createElement(_Button.default, {
-    variant: "secondary"
-  }, "Sign Up"))));
+    className: "sign-up-button new-user",
+    variant: "dark"
+  }, "New User Sign Up"))));
 }
 
 LoginView.propTypes = {
@@ -37479,11 +37485,14 @@ function RegistrationView(props) {
     });
   };
 
-  return _react.default.createElement(_Container.default, null, _react.default.createElement("h3", null, "Create an account"), _react.default.createElement(_Form.default, {
+  return _react.default.createElement(_Container.default, null, _react.default.createElement("div", {
+    className: "register-heading"
+  }, _react.default.createElement("h2", null, "Create an account")), _react.default.createElement("br", null), _react.default.createElement(_Form.default, {
     className: "registration-form"
   }, _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicUsername"
   }, _react.default.createElement(_Form.default.Label, null, "Pick a Username: "), _react.default.createElement(_Form.default.Control, {
+    className: "form-field",
     type: "text",
     placeholder: "Username",
     required: true,
@@ -37496,6 +37505,7 @@ function RegistrationView(props) {
   }, "Must be alphanumeric and contain at least 5 characters")), _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicPassword"
   }, _react.default.createElement(_Form.default.Label, null, "Choose a Password: "), _react.default.createElement(_Form.default.Control, {
+    className: "form-field",
     type: "text",
     placeholder: "Password",
     required: true,
@@ -37508,6 +37518,7 @@ function RegistrationView(props) {
   }, "Password is required.")), _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicEmail"
   }, _react.default.createElement(_Form.default.Label, null, "Enter Email Address: "), _react.default.createElement(_Form.default.Control, {
+    className: "form-field",
     type: "text",
     placeholder: "example@gmail.com",
     required: true,
@@ -37520,6 +37531,7 @@ function RegistrationView(props) {
   }, "Must be a valid email address.")), _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicBirthday"
   }, _react.default.createElement(_Form.default.Label, null, "Enter Date of Birth:"), _react.default.createElement(_Form.default.Control, {
+    className: "form-field",
     type: "date",
     placeholder: "MM/DD/YYYY",
     required: true,
@@ -37530,15 +37542,14 @@ function RegistrationView(props) {
   })), _react.default.createElement(_Button.default, {
     type: "submit",
     variant: "dark",
-    className: "button-registration",
+    className: "sign-in-button",
     onClick: handleRegister
-  }, "Submit"), _react.default.createElement("div", {
-    className: "current-user"
-  }, "Already have an account?"), _react.default.createElement(_reactRouterDom.Link, {
+  }, "Submit"), _react.default.createElement(_reactRouterDom.Link, {
     to: "/"
   }, _react.default.createElement(_Button.default, {
-    variant: "secondary"
-  }, "Sign In"))));
+    variant: "secondary",
+    className: "sign-up-button existing-user"
+  }, "Existing User Sign In"))));
 }
 
 ;
@@ -52174,6 +52185,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -52278,7 +52291,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _React$createElement,
+          _this3 = this;
 
       // If the state isn't initialized, this will throw on runtime
       // before the data is initally loaded
@@ -52291,134 +52305,126 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
       });
-      return (// <div>
-        //   <nav className="nav">
-        //     <Button className="nav-item"
-        //             variant="secondary"
-        //             onClick={() => this.logOut()}
-        //     >
-        //       Logout
-        //     </Button>
-        //   </nav>
-        _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("div", {
-          className: "main-view text-center container-fluid main-view-styles"
-        }, _react.default.createElement(_Navbar.default, {
-          sticky: "top",
-          bg: "light",
-          expand: "lg",
-          className: "mb-3 shadow-sm p-3 mb-5"
-        }, _react.default.createElement(_Navbar.default.Brand, {
-          href: "http://localhost:1234",
-          className: "navbar-brand"
-        }, "FlixNET"), _react.default.createElement(_Navbar.default.Toggle, {
-          "aria-controls": "basic-navbar-nav"
-        }), _react.default.createElement(_Navbar.default.Collapse, {
-          className: "justify-content-end",
-          id: "basic-navbar-nav"
-        }, !user ? _react.default.createElement("ul", null, _react.default.createElement(_reactRouterDom.Link, {
-          to: "/"
-        }, _react.default.createElement(_Button.default, {
-          variant: "link"
-        }, "Sign In")), _react.default.createElement(_reactRouterDom.Link, {
-          to: "/register"
-        }, _react.default.createElement(_Button.default, {
-          variant: "link"
-        }, "Register"))) : _react.default.createElement("ul", null, _react.default.createElement(_reactRouterDom.Link, {
-          to: "/"
-        }, _react.default.createElement(_Button.default, {
-          variant: "link",
-          onClick: function onClick() {
-            return _this3.logOut();
-          }
-        }, "Sign Out")), _react.default.createElement(_reactRouterDom.Link, {
-          to: "/users/".concat(user)
-        }, _react.default.createElement(_Button.default, {
-          variant: "link"
-        }, "My Account")), _react.default.createElement(_reactRouterDom.Link, {
-          to: "/"
-        }, _react.default.createElement(_Button.default, {
-          variant: "link"
-        }, "Movies")), _react.default.createElement(_reactRouterDom.Link, {
-          to: "/about"
-        }, _react.default.createElement(_Button.default, {
-          variant: "link"
-        }, "About"))))), _react.default.createElement(_reactRouterDom.Route, {
-          exact: true,
-          path: "/",
-          render: function render() {
-            if (!user) return _react.default.createElement(_loginView.LoginView, {
-              onLoggedIn: function onLoggedIn(user) {
-                return _this3.onLoggedIn(user);
-              }
+      return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_Navbar.default, (_React$createElement = {
+        expand: "lg",
+        sticky: "top",
+        variant: "dark"
+      }, _defineProperty(_React$createElement, "expand", "lg"), _defineProperty(_React$createElement, "className", "navbar shadow-sm mb-5"), _React$createElement), _react.default.createElement(_Navbar.default.Brand, {
+        href: "http://localhost:1234",
+        className: "navbar-brand"
+      }, "FlixNET"), _react.default.createElement(_Navbar.default.Toggle, {
+        "aria-controls": "basic-navbar-nav"
+      }), _react.default.createElement(_Navbar.default.Collapse, {
+        className: "justify-content-end",
+        id: "basic-navbar-nav"
+      }, !user ? _react.default.createElement("ul", null, _react.default.createElement(_reactRouterDom.Link, {
+        to: "/"
+      }, _react.default.createElement(_Button.default, {
+        variant: "link",
+        className: "navbar-link"
+      }, "Sign In")), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/register"
+      }, _react.default.createElement(_Button.default, {
+        variant: "link",
+        className: "navbar-link"
+      }, "Register"))) : _react.default.createElement("ul", null, _react.default.createElement(_reactRouterDom.Link, {
+        to: "/"
+      }, _react.default.createElement(_Button.default, {
+        variant: "link",
+        className: "navbar-link",
+        onClick: function onClick() {
+          return _this3.logOut();
+        }
+      }, "Sign Out")), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/users/".concat(user)
+      }, _react.default.createElement(_Button.default, {
+        variant: "link",
+        className: "navbar-link"
+      }, "My Account")), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/"
+      }, _react.default.createElement(_Button.default, {
+        variant: "link",
+        className: "navbar-link"
+      }, "Movies")), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/about"
+      }, _react.default.createElement(_Button.default, {
+        variant: "link",
+        className: "navbar-link"
+      }, "About"))))), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/",
+        render: function render() {
+          if (!user) return _react.default.createElement(_loginView.LoginView, {
+            onLoggedIn: function onLoggedIn(user) {
+              return _this3.onLoggedIn(user);
+            }
+          });
+          return _react.default.createElement("div", {
+            className: "row d-flex mt-4 ml-2"
+          }, movies.map(function (m) {
+            return _react.default.createElement(_movieCard.MovieCard, {
+              key: m._id,
+              movie: m
             });
-            return _react.default.createElement("div", {
-              className: "row d-flex mt-4 ml-2"
-            }, movies.map(function (m) {
-              return _react.default.createElement(_movieCard.MovieCard, {
-                key: m._id,
-                movie: m
-              });
-            }));
-          }
-        }), _react.default.createElement(_reactRouterDom.Route, {
-          path: "/register",
-          render: function render() {
-            return _react.default.createElement(_registrationView.RegistrationView, null);
-          }
-        }), _react.default.createElement(_reactRouterDom.Route, {
-          exact: true,
-          path: "/users/",
-          render: function render() {
-            return window.open("/", "_self");
-          }
-        }), _react.default.createElement(_reactRouterDom.Route, {
-          exact: true,
-          path: "/users/:userId",
-          render: function render() {
-            return _react.default.createElement(_profileView.ProfileView, {
-              movies: movies
-            });
-          }
-        }), _react.default.createElement(_reactRouterDom.Route, {
-          path: "/update/:userId",
-          render: function render() {
-            return _react.default.createElement(_updateView.UpdateView, null);
-          }
-        }), _react.default.createElement(_reactRouterDom.Route, {
-          path: "/movies/:movieId",
-          render: function render(_ref) {
-            var match = _ref.match;
-            return _react.default.createElement(_movieView.MovieView, {
-              movie: movies.find(function (m) {
-                return m._id === match.params.movieId;
-              })
-            });
-          }
-        }), _react.default.createElement(_reactRouterDom.Route, {
-          path: "/genres/:name",
-          render: function render(_ref2) {
-            var match = _ref2.match;
-            return _react.default.createElement(_genreView.GenreView, {
-              genre: movies.find(function (m) {
-                return m.Genre.Name === match.params.name;
-              }),
-              movies: movies
-            });
-          }
-        }), _react.default.createElement(_reactRouterDom.Route, {
-          path: "/directors/:name",
-          render: function render(_ref3) {
-            var match = _ref3.match;
-            return _react.default.createElement(_directorView.DirectorView, {
-              director: movies.find(function (m) {
-                return m.Director.Name === match.params.name;
-              }),
-              movies: movies
-            });
-          }
-        }))) // </div>
-
-      );
+          }));
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        path: "/register",
+        render: function render() {
+          return _react.default.createElement(_registrationView.RegistrationView, null);
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/users/",
+        render: function render() {
+          return window.open("/", "_self");
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/users/:userId",
+        render: function render() {
+          return _react.default.createElement(_profileView.ProfileView, {
+            movies: movies
+          });
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        path: "/update/:userId",
+        render: function render() {
+          return _react.default.createElement(_updateView.UpdateView, null);
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        path: "/movies/:movieId",
+        render: function render(_ref) {
+          var match = _ref.match;
+          return _react.default.createElement(_movieView.MovieView, {
+            movie: movies.find(function (m) {
+              return m._id === match.params.movieId;
+            })
+          });
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        path: "/genres/:name",
+        render: function render(_ref2) {
+          var match = _ref2.match;
+          return _react.default.createElement(_genreView.GenreView, {
+            genre: movies.find(function (m) {
+              return m.Genre.Name === match.params.name;
+            }),
+            movies: movies
+          });
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        path: "/directors/:name",
+        render: function render(_ref3) {
+          var match = _ref3.match;
+          return _react.default.createElement(_directorView.DirectorView, {
+            director: movies.find(function (m) {
+              return m.Director.Name === match.params.name;
+            }),
+            movies: movies
+          });
+        }
+      }));
     }
   }]);
 
@@ -52520,7 +52526,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64723" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49468" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

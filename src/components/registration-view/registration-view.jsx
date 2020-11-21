@@ -34,11 +34,15 @@ export function RegistrationView(props) {
 
   return (
     <Container>
-      <h3>Create an account</h3>
+      <div className="register-heading">
+      <h2>Create an account</h2>
+      </div>
+      <br />
       <Form className="registration-form">
         <Form.Group controlId="formBasicUsername">
           <Form.Label>Pick a Username: </Form.Label>
           <Form.Control 
+            className="form-field"
             type="text" 
             placeholder="Username" 
             required
@@ -54,6 +58,7 @@ export function RegistrationView(props) {
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Choose a Password: </Form.Label>
           <Form.Control 
+            className="form-field"
             type="text" 
             placeholder="Password" 
             required
@@ -69,6 +74,7 @@ export function RegistrationView(props) {
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Enter Email Address: </Form.Label>
           <Form.Control 
+            className="form-field"
             type="text" 
             placeholder="example@gmail.com" 
             required
@@ -84,6 +90,7 @@ export function RegistrationView(props) {
         <Form.Group controlId="formBasicBirthday">
           <Form.Label>Enter Date of Birth:</Form.Label>
           <Form.Control 
+            className="form-field"
             type="date" 
             placeholder="MM/DD/YYYY" 
             required
@@ -94,17 +101,21 @@ export function RegistrationView(props) {
 
         <Button type="submit" 
                 variant="dark" 
-                className="button-registration" 
+                className="sign-in-button" 
                 onClick={handleRegister}
         >
-        Submit
+          Submit
         </Button>
-
+        {/* <br />
         <div className="current-user">
           Already have an account?
-        </div>
+        </div> */}
         <Link to={`/`}>
-          <Button variant="secondary">Sign In</Button>
+          <Button 
+            variant="secondary"
+            className="sign-up-button existing-user"
+          >
+            Existing User Sign In</Button>
         </Link>
       </Form>
     </Container>

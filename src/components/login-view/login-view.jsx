@@ -60,12 +60,16 @@ export function LoginView(props) {
 
   return (
     <Container>
+      <div className="login-heading">
       <h2>Welcome to FlixNET</h2>
-
+      </div>
+      <br />
+      
       <Form className="login-form">
         <Form.Group controlId="formBasicUsername">
           <Form.Label>Username: </Form.Label>
           <Form.Control 
+            className="form-field"
             type="text" 
             placeholder="Enter username"
             required
@@ -79,6 +83,7 @@ export function LoginView(props) {
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password: </Form.Label>
           <Form.Control 
+            className="form-field"
             type="password" 
             required
             placeholder="Enter password"
@@ -90,6 +95,7 @@ export function LoginView(props) {
           })}
         </Form.Group>
         <Button
+          className="sign-in-button"
           variant="dark"
           type="submit"
           onClick={handleSubmit}
@@ -98,9 +104,10 @@ export function LoginView(props) {
         </Button>
         <Link to={`/register`}>
           <Button
-            variant="secondary"
+            className="sign-up-button new-user"
+            variant="dark"
           >
-          Sign Up
+          New User Sign Up
           </Button>
         </Link>
       </Form>
