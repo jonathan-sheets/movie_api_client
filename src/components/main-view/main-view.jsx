@@ -97,23 +97,13 @@ export class MainView extends React.Component {
     if (!movies) return <div className="main-view"/>;
 
     return (
-      // <div>
-      //   <nav className="nav">
-          
-      //     <Button className="nav-item"
-      //             variant="secondary"
-      //             onClick={() => this.logOut()}
-      //     >
-      //       Logout
-      //     </Button>
-      //   </nav>
       <Router>
-      <div className="main-view text-center container-fluid main-view-styles">
         <Navbar
-          sticky="top"
-          bg="light"
           expand="lg"
-          className="mb-3 shadow-sm p-3 mb-5"
+          sticky="top"
+          variant="dark"
+          expand="lg"
+          className="navbar shadow-sm mb-5"
         >
           <Navbar.Brand
             href="http://localhost:1234"
@@ -129,27 +119,56 @@ export class MainView extends React.Component {
             {!user ? (
               <ul>
                 <Link to={`/`}>
-                  <Button variant="link">Sign In</Button>
+                  <Button 
+                    variant="link"
+                    className="navbar-link"
+                  >
+                    Sign In
+                  </Button>
                 </Link>
                 <Link to={`/register`}>
-                  <Button variant="link">Register</Button>
+                  <Button 
+                    variant="link"
+                    className="navbar-link"
+                  >
+                    Register
+                  </Button>
                 </Link>
               </ul>
             ) : (
               <ul>
                 <Link to={`/`}>
-                  <Button variant="link" onClick={() => this.logOut()}>
+                  <Button 
+                    variant="link" 
+                    className="navbar-link"
+                    onClick={() => this.logOut()}
+                  >
                     Sign Out
                   </Button>
                 </Link>
                 <Link to={`/users/${user}`}>
-                  <Button variant="link">My Account</Button>
+                  <Button 
+                    variant="link"
+                    className="navbar-link"
+                  >
+                    My Account
+                  </Button>
                 </Link>
                 <Link to={`/`}>
-                  <Button variant="link">Movies</Button>
+                  <Button 
+                    variant="link"
+                    className="navbar-link"
+                  >
+                    Movies
+                  </Button>
                 </Link>
                 <Link to={`/about`}>
-                  <Button variant="link">About</Button>
+                  <Button 
+                    variant="link"
+                    className="navbar-link"
+                  >
+                    About
+                  </Button>
                 </Link>
               </ul>
             )}
@@ -225,9 +244,7 @@ export class MainView extends React.Component {
             />
           )}
         />
-      </div>
       </Router>
-      // </div>
     );
   }
 }

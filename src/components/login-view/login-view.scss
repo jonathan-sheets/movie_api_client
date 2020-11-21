@@ -1,0 +1,44 @@
+body {
+  background-color: #99998E;
+}
+
+form {
+  max-width: 500px;
+  margin: auto;
+}
+
+.login-heading {
+  text-align: center;
+}
+
+.form-field {
+  background-color: #BDBB98;
+  border: 1px solid black;
+}
+
+.sign-in-button {
+  background-color: #6C6C56;
+  margin-top: 5px;
+  width: 100px;
+}
+
+.sign-in-button:hover {
+  background-color: #D3D3C6;
+  color: black;
+}
+
+.sign-up-button {
+  background-color: #89897A;
+  margin-left: 2px;
+  margin-top: 5px;
+  width: 200px;
+}
+
+.new-user {
+  float: right;
+}
+
+.sign-up-button:hover {
+  background-color: #D3D3C6;
+  color: black;
+}
