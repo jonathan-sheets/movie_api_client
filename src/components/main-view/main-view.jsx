@@ -1,7 +1,16 @@
 import React from 'react';
 import axios from 'axios';
-import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+
 import { BrowserRouter as Router, Route } from "react-router-dom";
+// #0
+import { setMovies } from '../../actions/actions';
+import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input';
+
+// haven't written this one yet
+import MoviesList from '../movies-list/movies-list';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
@@ -35,10 +44,8 @@ export class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}`}
     })
     .then(response => {
-      // Assign the result to the state
-      this.setState({
-        movies: response.data
-      });
+      // #1
+      this.props.setMovies(response.data);
     })
     .catch(function (error) {
       console.log(error);
@@ -89,15 +96,22 @@ export class MainView extends React.Component {
   render() {
     // If the state isn't initialized, this will throw on runtime
     // before the data is initally loaded
-    const { movies, user } = this.state;
+    // const { movies, user } = this.state;
+
+    // #2
+    let { movies, visibilityFilter } = this.props;
+    let { user } = this.state;
+  
 
     /* If there is no user, the LoginView is rendered.  If there is a user logged in, the user details are *passed as a prop to the LoginView */
 
     // Before the movies have been loaded
-    if (!movies) return <div className="main-view"/>;
+
+    // if (!movies) return <div className="main-view"/>;
 
     return (
       <Router>
+        <div className="main-view">
         <Navbar
           expand="lg"
           sticky="top"
@@ -116,6 +130,7 @@ export class MainView extends React.Component {
             className="justify-content-end"
             id="basic-navbar-nav"
           >
+            <VisibilityFilterInput visibilityFilter={visibilityFilter} />
             {!user ? (
               <ul>
                 <Link to={`/`}>
@@ -180,14 +195,13 @@ export class MainView extends React.Component {
           render={() => {
             if (!user) 
               return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-              return (
-                <div className="row d-flex mt-4 ml-2">
-                  {movies.map(m => <MovieCard key={m._id} movie={m}/>
-                )}
-                </div>
-            );
-          }}
-        />
+              return <MoviesList movies={movies}/>;
+          }} />
+            {/* return ( */}
+            {/* <div className="row d-flex mt-4 ml-2"> */}
+            {/* {movies.map(m => <MovieCard key={m._id} movie={m}/> */}
+            {/* )} */}
+            {/* </div> */}
         <Route 
           path="/register" 
           render={() => <RegistrationView />} 
@@ -244,7 +258,16 @@ export class MainView extends React.Component {
             />
           )}
         />
+        </div>
       </Router>
     );
   }
 }
+
+// #3
+let mapStateToProps = state => {
+  return { movies: state.movies }
+}
+
+// #4
+export default connect(mapStateToProps, { setMovies } )(MainView);
