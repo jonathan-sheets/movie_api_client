@@ -38063,6 +38063,8 @@ var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
 
+var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
+
 var _reactRouterDom = require("react-router-dom");
 
 require("./movie-card.scss");
@@ -38109,21 +38111,20 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
       // Which, in this case, is `MainView`, as `MainView` is what's connected
       // to your database via the movies endpoint of your API
       var movie = this.props.movie;
-      return (// 
-        _react.default.createElement(_Card.default, {
-          style: {
-            width: '16rem'
-          },
-          className: "movie-card mt-3 border border-dark rounded"
-        }, _react.default.createElement(_Card.default.Img, {
-          variant: "top",
-          src: movie.ImagePath
-        }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, null, movie.Title), _react.default.createElement(_Card.default.Text, null, movie.Description), _react.default.createElement(_reactRouterDom.Link, {
-          to: "/movies/".concat(movie._id)
-        }, _react.default.createElement(_Button.default, {
-          variant: "dark"
-        }, "Details"))))
-      );
+      return _react.default.createElement(_Card.default, {
+        style: {
+          width: '18rem'
+        },
+        className: "movie-card mt-3 border border-dark rounded"
+      }, _react.default.createElement(_Card.default.Img, {
+        variant: "top",
+        src: movie.ImagePath
+      }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, null, movie.Title), _react.default.createElement(_Card.default.Text, null, movie.Description), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/movies/".concat(movie._id)
+      }, _react.default.createElement(_Button.default, {
+        variant: "dark",
+        className: "movie-button"
+      }, "Details"))));
     }
   }]);
 
@@ -38148,7 +38149,7 @@ MovieCard.propTypes = {
     })
   })
 };
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./movie-card.scss":"components/movie-card/movie-card.scss"}],"../node_modules/invariant/browser.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./movie-card.scss":"components/movie-card/movie-card.scss"}],"../node_modules/invariant/browser.js":[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -52526,7 +52527,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49468" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56518" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
