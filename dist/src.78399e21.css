@@ -1,3 +1,31 @@
+.form-control {
+  display: block;
+  width: 25%;
+  height: calc(2.25rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.movie-card {
+  background-color: #D3D3C6;
+  margin: 10px;
+}
+
+.movie-button {
+  background-color: #6C6C56;
+}
+
+.movie-button:hover {
+  background-color: #737300;
+  color: white;
+}
 body {
   background-color: #99998E;
 }
@@ -63,19 +91,6 @@ form {
 .existing-user {
   width: 200px;
   float: right;
-}
-.movie-card {
-  background-color: #D3D3C6;
-  margin: 10px;
-}
-
-.movie-button {
-  background-color: #6C6C56;
-}
-
-.movie-button:hover {
-  background-color: #737300;
-  color: white;
 }
 .navbar {
   background-color: #4E4E45;
