@@ -40034,16 +40034,13 @@ var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
 
 var _Row = _interopRequireDefault(require("react-bootstrap/Row"));
 
-var _Col = _interopRequireDefault(require("react-bootstrap/Col"));
-
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
-
-var _visibilityFilterInput = _interopRequireDefault(require("../visibility-filter-input/visibility-filter-input"));
-
 var _movieCard = require("../movie-card/movie-card");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// import Col from 'react-bootstrap/Col';
+// import Button from 'react-bootstrap/Button';
+// import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input';
 var mapStateToProps = function mapStateToProps(state) {
   var visibilityFilter = state.visibilityFilter;
   return {
@@ -40078,7 +40075,7 @@ function MoviesList(props) {
 var _default = (0, _reactRedux.connect)(mapStateToProps)(MoviesList);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","../visibility-filter-input/visibility-filter-input":"components/visibility-filter-input/visibility-filter-input.jsx","../movie-card/movie-card":"components/movie-card/movie-card.jsx"}],"components/login-view/login-view.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","../movie-card/movie-card":"components/movie-card/movie-card.jsx"}],"components/login-view/login-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -54663,15 +54660,11 @@ var _visibilityFilterInput = _interopRequireDefault(require("../visibility-filte
 
 var _moviesList = _interopRequireDefault(require("../movies-list/movies-list"));
 
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
 var _loginView = require("../login-view/login-view");
 
 var _registrationView = require("../registration-view/registration-view");
 
 var _profileView = require("../profile-view/profile-view");
-
-var _movieCard = require("../movie-card/movie-card");
 
 var _movieView = require("../movie-view/movie-view");
 
@@ -54749,7 +54742,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        // #1
         _this2.props.setMovies(response.data);
       }).catch(function (error) {
         console.log(error);
@@ -54768,13 +54760,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         this.getMovies(accessToken);
       }
     }
-    /* When a movie is clicked this function is invoked and updates the state of the `selectedMovie` *property to that movie */
-    // onMovieClick(movie) {
-    //   this.setState({
-    //     selectedMovie: movie
-    //   });
-    // }
-
   }, {
     key: "onLoggedIn",
     value: function onLoggedIn(authData) {
@@ -54804,18 +54789,10 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       var _React$createElement,
           _this3 = this;
 
-      // If the state isn't initialized, this will throw on runtime
-      // before the data is initally loaded
-      // const { movies, user } = this.state;
-      // #2
       var _this$props = this.props,
           movies = _this$props.movies,
           visibilityFilter = _this$props.visibilityFilter;
       var user = this.state.user;
-      /* If there is no user, the LoginView is rendered.  If there is a user logged in, the user details are *passed as a prop to the LoginView */
-      // Before the movies have been loaded
-      // if (!movies) return <div className="main-view"/>;
-
       return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("div", {
         className: "main-view"
       }, _react.default.createElement(_Navbar.default, (_React$createElement = {
@@ -54939,8 +54916,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
   }]);
 
   return MainView;
-}(_react.default.Component); // #3
-
+}(_react.default.Component);
 
 exports.MainView = MainView;
 
@@ -54956,7 +54932,7 @@ var _default = (0, _reactRedux.connect)(mapStateToProps, {
 })(MainView);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../../actions/actions":"actions/actions.js","../visibility-filter-input/visibility-filter-input":"components/visibility-filter-input/visibility-filter-input.jsx","../movies-list/movies-list":"components/movies-list/movies-list.jsx","prop-types":"../node_modules/prop-types/index.js","../login-view/login-view":"components/login-view/login-view.jsx","../registration-view/registration-view":"components/registration-view/registration-view.jsx","../profile-view/profile-view":"components/profile-view/profile-view.jsx","../movie-card/movie-card":"components/movie-card/movie-card.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx","../director-view/director-view":"components/director-view/director-view.jsx","../update-view/update-view":"components/update-view/update-view.jsx","../genre-view/genre-view":"components/genre-view/genre-view.jsx","react-bootstrap/Navbar":"../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./main-view.scss":"components/main-view/main-view.scss"}],"reducers/reducers.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../../actions/actions":"actions/actions.js","../visibility-filter-input/visibility-filter-input":"components/visibility-filter-input/visibility-filter-input.jsx","../movies-list/movies-list":"components/movies-list/movies-list.jsx","../login-view/login-view":"components/login-view/login-view.jsx","../registration-view/registration-view":"components/registration-view/registration-view.jsx","../profile-view/profile-view":"components/profile-view/profile-view.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx","../director-view/director-view":"components/director-view/director-view.jsx","../update-view/update-view":"components/update-view/update-view.jsx","../genre-view/genre-view":"components/genre-view/genre-view.jsx","react-bootstrap/Navbar":"../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./main-view.scss":"components/main-view/main-view.scss"}],"reducers/reducers.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -54995,7 +54971,7 @@ function movies() {
 }
 
 function user() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
@@ -55005,13 +54981,7 @@ function user() {
     default:
       return state;
   }
-} // function moviesApp(state = {}, action) {
-//   return {
-//     visibilityFilter: visibilityFilter(state.visibilityFilter, action),
-//     movies: movies(state.movies, action)
-//   }
-// }
-
+}
 
 var moviesApp = (0, _redux.combineReducers)({
   visibilityFilter: visibilityFilter,
@@ -55147,7 +55117,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49738" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60370" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
