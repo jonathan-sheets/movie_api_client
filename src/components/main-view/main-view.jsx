@@ -5,12 +5,13 @@ import { connect } from 'react-redux';
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
 // #0
-import { setMovies } from '../../actions/actions';
+import { setMovies, setUser } from '../../actions/actions';
+
 import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input';
 
 import MoviesList from '../movies-list/movies-list';
 import { Link } from 'react-router-dom';
-import { LoginView } from '../login-view/login-view';
+import LoginView from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { ProfileView } from '../profile-view/profile-view';
 import { MovieView } from '../movie-view/movie-view';
@@ -30,12 +31,37 @@ export class MainView extends React.Component {
     // call the superclass constructor so react can initialize it
     super();
     // Initial state is set to null
-    this.state = {
-      movies: [],
-      user: null
-    };
+    // this.state = {
+    //   movies: [],
+    //   user: null
+    // };
   }
   
+  
+
+  // One of the "hooks" available in a React Component
+  componentDidMount() {
+    let accessToken = localStorage.getItem('token');
+    if (accessToken !== null) {
+      // this.setState({
+      //   user: localStorage.getItem('user')
+      // });
+      this.props.setUser(localStorage.getItem('user'));
+      this.getMovies(accessToken);
+    }
+  }
+  
+  onLoggedIn(authData) {
+    console.log(authData);
+    // this.setState({
+    //   user: authData.user.Username
+    // });
+
+    localStorage.setItem('token', authData.token);
+    localStorage.setItem('user', authData.user.Username);
+    this.getMovies(authData.token);
+  }
+
   getMovies(token) {
     axios.get('https://flixnet-2020.herokuapp.com/movies', {
       headers: { Authorization: `Bearer ${token}`}
@@ -48,34 +74,13 @@ export class MainView extends React.Component {
     });
   }
 
-  // One of the "hooks" available in a React Component
-  componentDidMount() {
-    let accessToken = localStorage.getItem('token');
-    if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem('user')
-      });
-      this.getMovies(accessToken);
-    }
-  }
-  
-  onLoggedIn(authData) {
-    console.log(authData);
-    this.setState({
-      user: authData.user.Username
-    });
-
-    localStorage.setItem('token', authData.token);
-    localStorage.setItem('user', authData.user.Username);
-    this.getMovies(authData.token);
-  }
 
   logOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    this.setState({
-      user: null,
-    });
+    // this.setState({
+    //   user: null,
+    // });
     console.log('logout successful');
     alert('You have been successfully logged out');
     window.open('/', '_self');
@@ -83,8 +88,8 @@ export class MainView extends React.Component {
 
   render() {
 
-    let { movies, visibilityFilter } = this.props;
-    let { user } = this.state;
+    let { movies, visibilityFilter, user } = this.props;
+    // let { user } = this.state;
 
     return (
       <Router>
@@ -238,8 +243,8 @@ export class MainView extends React.Component {
 }
 
 let mapStateToProps = state => {
-  return { movies: state.movies }
-}
+  return { movies: state.movies, user: state.user };
+};
 
 // #4
-export default connect(mapStateToProps, { setMovies } )(MainView);
+export default connect(mapStateToProps, { setMovies, setUser } )(MainView);

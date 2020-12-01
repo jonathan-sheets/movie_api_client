@@ -39417,7 +39417,8 @@ function VisibilityFilterInput(props) {
       return props.setFilter(e.target.value);
     },
     value: props.visibilityFilter,
-    placeholder: "filter"
+    className: "search-bar",
+    placeholder: "Filter"
   });
 }
 
@@ -40086,7 +40087,7 @@ module.hot.accept(reloadCSS);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.LoginView = LoginView;
+exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -40095,6 +40096,10 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 var _axios = _interopRequireDefault(require("axios"));
 
 var _reactRouterDom = require("react-router-dom");
+
+var _reactRedux = require("react-redux");
+
+var _actions = require("../../actions/actions");
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
@@ -40155,6 +40160,7 @@ function LoginView(props) {
       }).then(function (response) {
         var data = response.data;
         props.onLoggedIn(data);
+        props.setUser(username);
       }).catch(function (e) {
         console.log('no such user');
         alert('Invalid username or password');
@@ -40243,13 +40249,15 @@ function LoginView(props) {
 }
 
 LoginView.propTypes = {
-  user: _propTypes.default.shape({
-    Username: _propTypes.default.string.isRequired,
-    Password: _propTypes.default.string.isRequired
-  }),
   onLoggedIn: _propTypes.default.func.isRequired
 };
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","./login-view.scss":"components/login-view/login-view.scss"}],"components/registration-view/registration-view.scss":[function(require,module,exports) {
+
+var _default = (0, _reactRedux.connect)(null, {
+  setUser: _actions.setUser
+})(LoginView);
+
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-redux":"../node_modules/react-redux/es/index.js","../../actions/actions":"actions/actions.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","./login-view.scss":"components/login-view/login-view.scss"}],"components/registration-view/registration-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -54660,7 +54668,7 @@ var _visibilityFilterInput = _interopRequireDefault(require("../visibility-filte
 
 var _moviesList = _interopRequireDefault(require("../movies-list/movies-list"));
 
-var _loginView = require("../login-view/login-view");
+var _loginView = _interopRequireDefault(require("../login-view/login-view"));
 
 var _registrationView = require("../registration-view/registration-view");
 
@@ -54718,67 +54726,64 @@ var MainView = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(MainView);
 
   function MainView() {
-    var _this;
-
     _classCallCheck(this, MainView);
 
     // call the superclass constructor so react can initialize it
-    _this = _super.call(this); // Initial state is set to null
+    return _super.call(this); // Initial state is set to null
+    // this.state = {
+    //   movies: [],
+    //   user: null
+    // };
+  } // One of the "hooks" available in a React Component
 
-    _this.state = {
-      movies: [],
-      user: null
-    };
-    return _this;
-  }
 
   _createClass(MainView, [{
-    key: "getMovies",
-    value: function getMovies(token) {
-      var _this2 = this;
-
-      _axios.default.get('https://flixnet-2020.herokuapp.com/movies', {
-        headers: {
-          Authorization: "Bearer ".concat(token)
-        }
-      }).then(function (response) {
-        _this2.props.setMovies(response.data);
-      }).catch(function (error) {
-        console.log(error);
-      });
-    } // One of the "hooks" available in a React Component
-
-  }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       var accessToken = localStorage.getItem('token');
 
       if (accessToken !== null) {
-        this.setState({
-          user: localStorage.getItem('user')
-        });
+        // this.setState({
+        //   user: localStorage.getItem('user')
+        // });
+        this.props.setUser(localStorage.getItem('user'));
         this.getMovies(accessToken);
       }
     }
   }, {
     key: "onLoggedIn",
     value: function onLoggedIn(authData) {
-      console.log(authData);
-      this.setState({
-        user: authData.user.Username
-      });
+      console.log(authData); // this.setState({
+      //   user: authData.user.Username
+      // });
+
       localStorage.setItem('token', authData.token);
       localStorage.setItem('user', authData.user.Username);
       this.getMovies(authData.token);
     }
   }, {
+    key: "getMovies",
+    value: function getMovies(token) {
+      var _this = this;
+
+      _axios.default.get('https://flixnet-2020.herokuapp.com/movies', {
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        }
+      }).then(function (response) {
+        _this.props.setMovies(response.data);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }, {
     key: "logOut",
     value: function logOut() {
       localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      this.setState({
-        user: null
-      });
+      localStorage.removeItem('user'); // this.setState({
+      //   user: null,
+      // });
+
       console.log('logout successful');
       alert('You have been successfully logged out');
       window.open('/', '_self');
@@ -54787,12 +54792,13 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       var _React$createElement,
-          _this3 = this;
+          _this2 = this;
 
       var _this$props = this.props,
           movies = _this$props.movies,
-          visibilityFilter = _this$props.visibilityFilter;
-      var user = this.state.user;
+          visibilityFilter = _this$props.visibilityFilter,
+          user = _this$props.user; // let { user } = this.state;
+
       return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("div", {
         className: "main-view"
       }, _react.default.createElement(_Navbar.default, (_React$createElement = {
@@ -54825,7 +54831,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         variant: "link",
         className: "navbar-link",
         onClick: function onClick() {
-          return _this3.logOut();
+          return _this2.logOut();
         }
       }, "Sign Out")), _react.default.createElement(_reactRouterDom.Link, {
         to: "/users/".concat(user)
@@ -54846,9 +54852,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         exact: true,
         path: "/",
         render: function render() {
-          if (!user) return _react.default.createElement(_loginView.LoginView, {
+          if (!user) return _react.default.createElement(_loginView.default, {
             onLoggedIn: function onLoggedIn(user) {
-              return _this3.onLoggedIn(user);
+              return _this2.onLoggedIn(user);
             }
           });
           return _react.default.createElement(_moviesList.default, {
@@ -54922,13 +54928,15 @@ exports.MainView = MainView;
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    movies: state.movies
+    movies: state.movies,
+    user: state.user
   };
 }; // #4
 
 
 var _default = (0, _reactRedux.connect)(mapStateToProps, {
-  setMovies: _actions.setMovies
+  setMovies: _actions.setMovies,
+  setUser: _actions.setUser
 })(MainView);
 
 exports.default = _default;
@@ -55117,7 +55125,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60370" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53803" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
