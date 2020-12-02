@@ -1,6 +1,23 @@
 .movie-card {
   background-color: #D3D3C6;
   margin: 10px;
+  font-family: 'Syne Mono', monospace;
+  text-align: center;
+}
+
+.movie-title {
+  text-decoration: underline;
+  font-size: 22px;
+  text-transform: uppercase;
+  padding-bottom: 6px;
+}
+
+.movie-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 
 .movie-button {
