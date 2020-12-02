@@ -1,0 +1,70 @@
+.user-profile {
+  text-decoration: underline;
+  text-transform: uppercase;
+  margin-top: -30px;
+  margin-bottom: 12px;
+  width: 18rem;
+}
+
+h1 {
+  font-size: 22px;
+  text-align: center;
+  padding-bottom: 10px;
+  text-decoration: underline;
+}
+
+h2, h3 {
+  font-size: 20px;
+}
+
+.edit-button {
+  width: 9rem;
+}
+
+.back-button {
+  width: 9rem;
+}
+
+.delete-button {
+  width: 18rem;
+}
+
+.favorite-movies {
+  font-size: 22px;
+  text-transform: uppercase;
+  margin-top: -30px;
+  // margin-bottom: 0;
+  width: 36rem;
+  text-align: center;
+}
+
+.favorite-cards {
+  margin-top: -8px;
+}
+
+.favorite-card {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 4px;
+  border: 2px solid black;
+}
+
+.movie-card-link:hover {
+  opacity: 70%;
+}
+
+.remove-favorite {
+  text-transform: uppercase;
+  color: black;
+  border-radius: 1px;
+}
+
+.remove-favorite:hover {
+  background-color: black;
+}
+
+// @media only screen and (max-width: 768px) {
+//   .userProfile {
+//     flex-direction: column;
+//   }
+// }

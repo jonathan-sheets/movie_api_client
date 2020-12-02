@@ -106,10 +106,6 @@ export function RegistrationView(props) {
         >
           Submit
         </Button>
-        {/* <br />
-        <div className="current-user">
-          Already have an account?
-        </div> */}
         <Link to={`/`}>
           <Button 
             variant="secondary"

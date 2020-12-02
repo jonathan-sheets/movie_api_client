@@ -115,8 +115,8 @@ export class ProfileView extends React.Component {
         <Container>
           <Row>
             <Col>
-              <Form style={{ width: "24rem", float: "left" }}>
-                <h1 style={{ textAlign: "center" }}>Profile Details</h1>
+              <Form  className="user-profile"> 
+                <h1>Profile Details</h1>
                 <Form.Group controlId="formBasicUsername">
                   <h3>Username: </h3>
                   <Form.Label>{this.state.username}</Form.Label>
@@ -131,59 +131,61 @@ export class ProfileView extends React.Component {
                 </Form.Group>
                   <Link to={`/update/${this.state.username}`}>
                     <Button variant="outline-dark" 
-                            type="link"
+                            className="edit-button"
                             size="sm" 
-                            block
                     >
                       Edit Profile
                     </Button>
                   </Link>
                 <Link to={`/`}>
                   <Button variant="outline-dark" 
-                          type="submit"
+                          className="back-button"
                           size="sm"
-                          block
                   >
                     Back to Main
                   </Button>
                 </Link>
-                <Button variant="outline-danger" 
+                  <Button variant="outline-danger" 
                         size="sm"
-                        block
+                        className="delete-button"
                         onClick={() => this.handleDelete()}
-                >
-                  Delete Account
-                </Button>
-                
+                  >
+                    Delete Account
+                  </Button>
               </Form>
             </Col>
             <Col>
-              <div
-                className="favoriteMovies"
-                style={{
-                  float: "right",
-                  textAlign: "center",
-                  width: "24rem",
-                }}
-              >
+            
+              <div className="favorite-movies">
                 <h1>Favorite Movies</h1>
+                <Container className="favorite-cards">
+                  <Row>
                 {favoriteMovieList.map((movie) => {
                   return (
                     <div key={movie._id}>
-                      <Card>
-                        <Card.Body>
-                          <Link to={`/movies/${movie._id}`}>
-                            <Card.Title>{movie.Title}</Card.Title>
-                          </Link>
-                        </Card.Body>
-                      </Card>
-                      <Button onClick={() => this.removeFavorite(movie)}>
+                      <Card style={{ width: '10rem' }} className="favorite-card movie-card mt-3 ">
+                      <Link to={`/movies/${movie._id}`}>
+                      <Card.Img 
+                        className="movie-card-link"
+                        variant="top" 
+                        src={movie.ImagePath} />
+                      </Link>
+                      
+                      <Button 
+                        className="remove-favorite"
+                        variant="danger"
+                        size="sm"
+                        onClick={() => this.removeFavorite(movie)}>
                         Remove
                       </Button>
+                      </Card>
                     </div>
                   );
                 })}
+                </Row>
+                </Container>
               </div>
+              
             </Col>
           </Row>
         </Container>

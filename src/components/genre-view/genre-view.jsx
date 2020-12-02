@@ -7,6 +7,8 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 
+import './genre-view.scss';
+
 export class GenreView extends React.Component {
   constructor() {
     super();
@@ -24,11 +26,11 @@ export class GenreView extends React.Component {
       <Row>
         <Col className="col-3" />
         <Col className="genre-view container-fluid align-items-center col-6">
-          <img
+          {/* <img
             className="genre-poster "
             src="https://via.placeholder.com/150"
-          />
-          <div className="genre-title ">
+          /> */}
+          <div className="genre-view-title">
             {/* <span className="label">Name: </span> */}
             <span className="value">{genre.Genre.Name}</span>
           </div>
@@ -37,44 +39,44 @@ export class GenreView extends React.Component {
             <span className="value">{genre.Genre.Description}</span>
           </div>
           <Link to={`/`}>
-            <Button variant="link">Return</Button>
+            <Button 
+              variant="link"
+              className="back-link links"
+            >
+              Back to Movies
+            </Button>
           </Link>
         </Col>
         <Col className="col-3" />
       </Row>
-      <Container>
+      <Container className="wrapper container-fluid">
         <h4 className="mt-4">Some {genre.Genre.Name} movies</h4>
-        <div className="d-flex row mt-3 ml-2">
+        <div className="d-flex row mt-3 ml-2 genre-results">
           {movies.map((movie) => {
             if (movie.Genre.Name === genre.Genre.Name) {
               return (
                 <div key={movie._id}>
                   <Card
-                    className="mb-3 mr-2 h-100"
-                    style={{ width: '16rem' }}
+                    className="movie-card mt-3 border border-dark rounded"
+                    style={{ width: '15rem' }}
                   >
                     <Card.Img variant="top" src={movie.ImagePath} />
                     <Card.Body>
-                      <Link
-                        className="text-muted"
-                        to={`/movies/${movie._id}`}
-                      >
-                        <Card.Title>{movie.Title}</Card.Title>
-                      </Link>
-                      <Card.Text>
-                        {movie.Description.substring(0, 90)}...
+                      <Card.Title className="movie-title">{movie.Title}</Card.Title>
+                      <Card.Text className="movie-text">
+                        {movie.Description}
                       </Card.Text>
-                    </Card.Body>
-                    <Card.Footer className="bg-white border-top-0">
-                      <Link to={`/movies/${movie._id}`}>
+                        <Link to={`/movies/${movie._id}`}>
                         <Button
-                          variant="link"
-                          className="read-more-link pl-0"
+                          variant="dark"
+                          size="sm"
+                          block
+                          className="movie-button"
                         >
                           Read more
                         </Button>
-                      </Link>
-                    </Card.Footer>
+                        </Link>
+                    </Card.Body>
                   </Card>
                 </div>
               );

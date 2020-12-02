@@ -66,7 +66,7 @@ function LoginView(props) {
   return (
     <Container>
       <div className="login-heading">
-      <h2>Welcome to FlixNET</h2>
+      <h2>WELCOME TO FlixNET</h2>
       </div>
       <br />
       

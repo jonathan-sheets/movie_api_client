@@ -26,12 +26,12 @@ export class DirectorView extends React.Component {
         <Row>
           <Col className="col-3" />
           <Col className="director-view container-fluid align-items-center col-6">
-            <img
+            {/* <img
               className="director-poster"
               src="https://via.placeholder.com/150"
-            />
-            <div className="director-title">
-              <span className="label">Name: </span>
+            /> */}
+            <div className="director-view-title">
+              {/* <span className="label">Name: </span> */}
               <span className="value">{director.Director.Name}</span>
             </div>
             <div className="director-bio">
@@ -47,44 +47,44 @@ export class DirectorView extends React.Component {
               <span className="value">{director.Director.Death}</span>
             </div>
             <Link to={`/`}>
-              <Button variant="link">Return</Button>
+            <Button 
+              variant="link"
+              className="back-link links"
+            >
+              Back to Movies
+            </Button>
             </Link>
           </Col>
           <Col className="col-3" />
         </Row>
-        <Container>
+        <Container className="wrapper container-fluid">
           <h4 className="mt-4">Some {director.Director.Name} movies</h4>
-          <div className="d-flex row mt-3 ml-1">
+          <div className="d-flex row mt-3 ml-2 director-results">
             {movies.map((movie) => {
               if (movie.Director.Name === director.Director.Name) {
                 return (
                   <div key={movie._id}>
                     <Card
-                      className="mb-3 mr-2 h-100"
-                      style={{ width: '16rem' }}
+                      className="movie-card mt-3 border border-dark rounded"
+                      style={{ width: '15rem' }}
                     >
                       <Card.Img variant="top" src={movie.ImagePath} />
                       <Card.Body>
-                        <Link
-                          className="text-muted"
-                          to={`/movies/${movie._id}`}
+                        <Card.Title className="movie-title">{movie.Title}</Card.Title>
+                        <Card.Text className="movie-text">
+                        {movie.Description}
+                      </Card.Text>
+                      <Link to={`/movies/${movie._id}`}>
+                        <Button
+                          variant="dark"
+                          size="sm"
+                          block
+                          className="movie-button"
                         >
-                          <Card.Title>{movie.Title}</Card.Title>
-                        </Link>
-                        <Card.Text>
-                          {movie.Description.substring(0, 90)}...
-                        </Card.Text>
-                      </Card.Body>
-                      <Card.Footer className="bg-white border-top-0">
-                        <Link to={`/movies/${movie._id}`}>
-                          <Button
-                            variant="link"
-                            className="read-more-link pl-0"
-                          >
                           Read more
-                          </Button>  
+                        </Button>
                         </Link>
-                      </Card.Footer>
+                      </Card.Body>
                     </Card>
                   </div>
                 );

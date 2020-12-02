@@ -95,14 +95,13 @@ export class MainView extends React.Component {
       <Router>
         <div className="main-view">
         <Navbar
-          expand="lg"
+          expand="md"
           sticky="top"
           variant="dark"
-          expand="lg"
-          className="navbar shadow-sm mb-5"
+          className="navbar shadow-sm mb-5 py-0"
         >
           <Navbar.Brand
-            href="http://localhost:1234"
+            href="https://flixnet2020.netlify.app"
             className="navbar-brand"
           >
           FlixNET
@@ -159,14 +158,14 @@ export class MainView extends React.Component {
                     Movies
                   </Button>
                 </Link>
-                <Link to={`/about`}>
+                {/* <Link to={`/about`}>
                   <Button 
                     variant="link"
                     className="navbar-link"
                   >
                     About
                   </Button>
-                </Link>
+                </Link> */}
               </ul>
             )}
           </Navbar.Collapse>
