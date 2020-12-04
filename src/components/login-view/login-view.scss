@@ -46,3 +46,10 @@ form {
   background-color: #D3D3C6;
   color: black;
 }
+
+@media only screen and (max-width: 356px) {
+  .sign-up-button {
+    width: 180px;
+    font-size: 12px;
+  }
+}

@@ -19,7 +19,7 @@
   font-family: 'Syne Mono', monospace;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 993px) {
   .search-bar {
     display: block;
     max-width: 100%;
@@ -38,8 +38,8 @@
   }
 }
 
-@media only screen and (max-width: 768px) {
-  ul {
-    float: right;
-  }
-}
+// @media only screen and (max-width: 993px) {
+//   ul {
+//     justify-content: space-around;
+//   }
+// }

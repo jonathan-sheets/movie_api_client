@@ -23,70 +23,67 @@ export class GenreView extends React.Component {
 
     return (
       <Container className="wrapper container-fluid">
-      <Row>
-        <Col className="col-3" />
-        <Col className="genre-view container-fluid align-items-center col-6">
-          {/* <img
-            className="genre-poster "
-            src="https://via.placeholder.com/150"
-          /> */}
-          <div className="genre-view-title">
-            {/* <span className="label">Name: </span> */}
-            <span className="value">{genre.Genre.Name}</span>
-          </div>
-          <div className="genre-description ">
-            {/* <span className="label">Description: </span> */}
-            <span className="value">{genre.Genre.Description}</span>
-          </div>
-          <Link to={`/`}>
-            <Button 
-              variant="link"
-              className="back-link links"
-            >
-              Back to Movies
-            </Button>
-          </Link>
-        </Col>
-        <Col className="col-3" />
-      </Row>
-      <Container className="wrapper container-fluid">
-        <h4 className="mt-4">Some {genre.Genre.Name} movies</h4>
-        <div className="d-flex row mt-3 ml-2 genre-results">
-          {movies.map((movie) => {
-            if (movie.Genre.Name === genre.Genre.Name) {
-              return (
-                <div key={movie._id}>
-                  <Card
-                    className="movie-card mt-3 border border-dark rounded"
-                    style={{ width: '15rem' }}
-                  >
-                    <Card.Img variant="top" src={movie.ImagePath} />
-                    <Card.Body>
-                      <Card.Title className="movie-title">{movie.Title}</Card.Title>
-                      <Card.Text className="movie-text">
-                        {movie.Description}
-                      </Card.Text>
-                        <Link to={`/movies/${movie._id}`}>
-                        <Button
-                          variant="dark"
-                          size="sm"
-                          block
-                          className="movie-button"
+        <Row>
+          <Col className="col-3" />
+            <div className="genre-view">
+
+              <div className="genre-view-title">
+                <span className="value">{genre.Genre.Name}</span>
+              </div>
+
+              <div className="genre-description">
+                <span className="value">{genre.Genre.Description}</span>
+              </div>
+
+              <Link to={`/`}>
+                <Button 
+                variant="link"
+                className="back-link links"
+                >
+                  Back to Movies
+                </Button>
+              </Link>
+
+              <h4 className="mt-4">Some {genre.Genre.Name} movies</h4>
+                <div className="d-flex row mt-3 ml-2 genre-results">
+                  {movies.map((movie) => {
+                    if (movie.Genre.Name === genre.Genre.Name) {
+                    return (
+                      <div key={movie._id}>
+                        <Card
+                          className="movie-card mt-3 border border-dark rounded"
+                          style={{ width: '14rem' }}
                         >
-                          Read more
-                        </Button>
-                        </Link>
-                    </Card.Body>
-                  </Card>
-                </div>
-              );
-            }
-          })}
-        </div>
+                        <Card.Img variant="top" src={movie.ImagePath} />
+                        <Card.Body>
+                        <Card.Title className="movie-title">
+                        { movie.Title}
+                        </Card.Title>
+                        <Card.Text className="movie-text">
+                          {movie.Description}
+                        </Card.Text>
+                          <Link to={`/movies/${movie._id}`}>
+                            <Button
+                              variant="dark"
+                              size="sm"
+                              block
+                              className="movie-button"
+                            >
+                              Read more
+                            </Button>
+                          </Link>
+                        </Card.Body>
+                        </Card>
+                      </div>
+                    );
+                  }
+                })}
+              </div>
+            </div>
+        </Row>
       </Container>
-    </Container>
-  );
-}
+    );
+  }
 }
 
 GenreView.propTypes = {

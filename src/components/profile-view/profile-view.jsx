@@ -33,16 +33,6 @@ export class ProfileView extends React.Component {
 
   formatDate(date) {
     if (date) date = date.substring(0, 10);
-    // d = d.setDate(d.getDate() + 1);
-
-    // var month = "" + (d.getMonth() + 1),
-    //   day = "" + d.getDate(),
-    //   year = d.getFullYear();
-
-    // if (month.length < 2) month = "0" + month;
-    // if (day.length < 2) day = "0" + day;
-
-    // return [year, month, day].join("-");
     return date;
   }
 
@@ -103,20 +93,20 @@ export class ProfileView extends React.Component {
 
   render() {
     const { movies } = this.props;
-    // this.getUser(localStorage.getItem("token"));
+
     const favoriteMovieList = movies.filter((movie) => {
       return this.state.favoriteMovies.includes(movie._id);
     });
-    // console.log(favoriteMovieList);
 
     if (!movies) alert("Please sign in");
     return (
-      <div className="userProfile" style={{ display: "flex" }}>
-        <Container>
-          <Row>
-            <Col>
+      <div className="userProfile">
+        <Container className="wrapper container-fluid">
+          <Row className="justify-content-center">
+            <Col className="col-6">
               <Form  className="user-profile"> 
                 <h1>Profile Details</h1>
+                <br />
                 <Form.Group controlId="formBasicUsername">
                   <h3>Username: </h3>
                   <Form.Label>{this.state.username}</Form.Label>
@@ -128,64 +118,68 @@ export class ProfileView extends React.Component {
                 <Form.Group controlId="formBasicDate">
                   <h3>Date of Birth:</h3>
                   <Form.Label>{this.state.dob}</Form.Label>
+                
                 </Form.Group>
-                  <Link to={`/update/${this.state.username}`}>
-                    <Button variant="outline-dark" 
-                            className="edit-button"
-                            size="sm" 
-                    >
-                      Edit Profile
-                    </Button>
-                  </Link>
-                <Link to={`/`}>
-                  <Button variant="outline-dark" 
-                          className="back-button"
-                          size="sm"
-                  >
-                    Back to Main
-                  </Button>
-                </Link>
-                  <Button variant="outline-danger" 
-                        size="sm"
-                        className="delete-button"
-                        onClick={() => this.handleDelete()}
-                  >
-                    Delete Account
-                  </Button>
-              </Form>
-            </Col>
-            <Col>
-            
-              <div className="favorite-movies">
-                <h1>Favorite Movies</h1>
-                <Container className="favorite-cards">
-                  <Row>
-                {favoriteMovieList.map((movie) => {
-                  return (
-                    <div key={movie._id}>
-                      <Card style={{ width: '10rem' }} className="favorite-card movie-card mt-3 ">
-                      <Link to={`/movies/${movie._id}`}>
-                      <Card.Img 
-                        className="movie-card-link"
-                        variant="top" 
-                        src={movie.ImagePath} />
-                      </Link>
-                      
-                      <Button 
-                        className="remove-favorite"
-                        variant="danger"
-                        size="sm"
-                        onClick={() => this.removeFavorite(movie)}>
-                        Remove
+                  <div className="buttons">
+                    <Link to={`/update/${this.state.username}`}>
+                      <Button variant="outline-dark" 
+                              className="edit-button"
+                              size="sm" 
+                      >
+                        Edit Profile
                       </Button>
-                      </Card>
-                    </div>
-                  );
-                })}
-                </Row>
-                </Container>
+                    </Link>
+                    <Link to={`/`}>
+                      <Button 
+                        variant="outline-dark" 
+                        className="back-button"
+                        size="sm"
+                      >
+                        Back to Main
+                      </Button>
+                    </Link>
+                    <Button 
+                    variant="outline-danger" 
+                    size="sm"
+                    className="delete-button"
+                    onClick={() => this.handleDelete()}
+                    >
+                    Delete Account
+                    </Button>
+                  </div>
+              </Form>
+              <br />
+
+              <h1>Favorite Movies</h1>
+                <div className="d-flex row mt-3 favorite-movies">
+                  <Row className="justify-content-center">
+                    
+                    {favoriteMovieList.map((movie) => {
+                    return (
+                      <div key={movie._id}>
+                        <Card style={{ width: '10rem' }} 
+                              className="favorite-card">
+                          <Link to={`/movies/${movie._id}`}>
+                            <Card.Img 
+                              className="movie-card-link"
+                              variant="top" 
+                              src={movie.ImagePath} />
+                          </Link>
+                      
+                          <Button 
+                            className="remove-favorite"
+                            variant="danger"
+                            size="sm"
+                            onClick={() => this.removeFavorite(movie)}>
+                              Remove
+                          </Button>
+                        </Card>
+                      </div>
+                      );
+                    })}
+                    
+                  </Row>
               </div>
-              
             </Col>
           </Row>
         </Container>

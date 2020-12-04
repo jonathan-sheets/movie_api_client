@@ -4,7 +4,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
-// #0
+
 import { setMovies, setUser } from '../../actions/actions';
 
 import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input';
@@ -19,33 +19,19 @@ import { DirectorView } from '../director-view/director-view';
 import { UpdateView } from '../update-view/update-view';
 import { GenreView } from '../genre-view/genre-view';
 import Navbar from 'react-bootstrap/Navbar';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import './main-view.scss';
 
 
 export class MainView extends React.Component {
   constructor() {
-    // call the superclass constructor so react can initialize it
     super();
-    // Initial state is set to null
-    // this.state = {
-    //   movies: [],
-    //   user: null
-    // };
   }
   
-  
-
   // One of the "hooks" available in a React Component
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
-      // this.setState({
-      //   user: localStorage.getItem('user')
-      // });
       this.props.setUser(localStorage.getItem('user'));
       this.getMovies(accessToken);
     }
@@ -53,10 +39,6 @@ export class MainView extends React.Component {
   
   onLoggedIn(authData) {
     console.log(authData);
-    // this.setState({
-    //   user: authData.user.Username
-    // });
-
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Username);
     this.getMovies(authData.token);
@@ -73,14 +55,10 @@ export class MainView extends React.Component {
       console.log(error);
     });
   }
-
-
+  
   logOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    // this.setState({
-    //   user: null,
-    // });
     console.log('logout successful');
     alert('You have been successfully logged out');
     window.open('/', '_self');
@@ -89,13 +67,12 @@ export class MainView extends React.Component {
   render() {
 
     let { movies, visibilityFilter, user } = this.props;
-    // let { user } = this.state;
 
     return (
       <Router>
         <div className="main-view">
         <Navbar
-          expand="md"
+          expand="lg"
           sticky="top"
           variant="dark"
           className="navbar shadow-sm mb-5 py-0"
@@ -158,14 +135,6 @@ export class MainView extends React.Component {
                     Movies
                   </Button>
                 </Link>
-                {/* <Link to={`/about`}>
-                  <Button 
-                    variant="link"
-                    className="navbar-link"
-                  >
-                    About
-                  </Button>
-                </Link> */}
               </ul>
             )}
           </Navbar.Collapse>

@@ -50,10 +50,9 @@ export class MovieView extends React.Component {
       <Container className="wrapper container-fluid">
         <Row>
           <Col className="col-3" />
-          <div className="movie-view container-fluid align-items-center col-6">
+          <div className="movie-description">
             <img className="movie-poster" src={movie.ImagePath} />
             <div className="movie-view-title">
-              {/* <span className="label">Title: </span> */}
               <span className="value">{movie.Title}</span>
             </div>
             <div className="movie-description">

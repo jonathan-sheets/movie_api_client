@@ -25,3 +25,16 @@ form {
   width: 220px;
   float: right;
 }
+
+@media only screen and (max-width: 356px) {
+  .existing-user {
+    width: 180px;
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 356px) {
+  .sign-in-button {
+    font-size: 12px;
+  }
+}
