@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import Container from 'react-bootstrap/Container';
+// import Container from 'react-bootstrap/Container';
 
 import { Link } from "react-router-dom";
 
@@ -16,14 +16,16 @@ export class MovieCard extends React.Component {
     const { movie } = this.props;
 
     return (
-      <Card style={{ width: '18rem' }} className="movie-card mt-3 border border-dark rounded">
+      <Card className="movie-card mt-3 border border-dark rounded">
         <Card.Img variant="top" src={movie.ImagePath} />
         <Card.Body>
-          <Card.Title>{movie.Title}</Card.Title>
-          <Card.Text>{movie.Description}</Card.Text>
+          <Card.Title className="movie-title">{movie.Title}</Card.Title>
+          <Card.Text className="movie-text">{movie.Description}</Card.Text>
           <Link to={`/movies/${movie._id}`}>
           <Button 
             variant="dark"
+            size="sm"
+            // block
             className="movie-button"
           >
             Details

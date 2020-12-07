@@ -1,13 +1,33 @@
 .movie-card {
+  max-width: 15rem;
   background-color: #D3D3C6;
   margin: 10px;
+  font-family: 'Syne Mono', monospace;
+  text-align: center;
+}
+
+.movie-title {
+  text-decoration: underline;
+  font-size: 22px;
+  text-transform: uppercase;
+  padding-top: -30px;
+}
+
+.movie-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  margin-bottom: 20px;
 }
 
 .movie-button {
+  width: 180px;
   background-color: #6C6C56;
 }
 
 .movie-button:hover {
-  background-color: #737300;
-  color: white;
+  background-color: #ffffc4;
+  color: black;
 }

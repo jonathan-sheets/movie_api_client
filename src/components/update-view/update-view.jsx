@@ -5,6 +5,8 @@ import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+import './update-view.scss';
+
 
 export function UpdateView(props) {
   const [username, setUsername] = useState("");
@@ -82,17 +84,25 @@ const formValidation = () => {
 
   return (
     <Container>
-      <h1>Update your account</h1>
+      <div className="update-heading">
+      <h2>Update your account</h2>
+      </div>
+      <br />
       <Form className="registration-form">
         <Form.Group controlId="formBasicUsername">
           <Form.Label>Username:</Form.Label>
           <Form.Control
+            className="form-field"
             type="text"
             value={username}
             placeholder="Enter username"
             required
             onChange={(e) => setUsername(e.target.value)}
           />
+          <Form.Text 
+            className="text-muted"
+            >Must be alphanumeric and contain at least 5 characters
+          </Form.Text>
           {Object.keys(usernameErr).map((key) => {
             return <div key={key} style={{ color: 'red' }}>{usernameErr[key]}</div>
           })}
@@ -100,19 +110,45 @@ const formValidation = () => {
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password:</Form.Label>
           <Form.Control
+            className="form-field"
             type="password"
             value={password}
             placeholder="Enter password"
             required
             onChange={(e) => setPassword(e.target.value)}
           />
+          <Form.Text 
+            className="text-muted"
+          >Password is required.
+          </Form.Text>
           {Object.keys(passwordErr).map((key) => {
             return <div key={key} style={{ color: 'red' }}>{passwordErr[key]}</div>
           })}
         </Form.Group>
-        <Form.Group>
-          <Form.Label>Birth Date:</Form.Label>
+        
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Email Address:</Form.Label>
           <Form.Control
+            className="form-field"
+            type="email"
+            value={email}
+            placeholder="name@example.com"
+            required
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Form.Text 
+            className="text-muted"
+          >Must be a valid email address.
+          </Form.Text>
+          {Object.keys(emailErr).map((key) => {
+            return <div key={key} style={{ color: 'red' }}>{emailErr[key]}</div>
+          })}
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Label>Date of Birth:</Form.Label>
+          <Form.Control
+            className="form-field"
             type="date"
             value={birthday}
             placeholder="Select Birthday"
@@ -120,22 +156,12 @@ const formValidation = () => {
             onChange={(e) => setBirthday(e.target.value)}
           />
         </Form.Group>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email:</Form.Label>
-          <Form.Control
-            type="email"
-            value={email}
-            placeholder="name@example.com"
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          {Object.keys(emailErr).map((key) => {
-            return <div key={key} style={{ color: 'red' }}>{emailErr[key]}</div>
-          })}
-        </Form.Group>
+
         <Link to={`/users/`}>
           <Button
-            variant="btn-lg btn-dark btn-block"
+            className="update-button"
+            variant="dark"
+            block
             type="submit"
             onClick={handleUpdate}
           >

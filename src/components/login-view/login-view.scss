@@ -9,6 +9,10 @@ form {
 
 .login-heading {
   text-align: center;
+  text-decoration: underline;
+  font-size: 22px;
+  margin-top: -30px;
+  margin-bottom: 12px;
 }
 
 .form-field {
@@ -31,7 +35,7 @@ form {
   background-color: #89897A;
   margin-left: 2px;
   margin-top: 5px;
-  width: 200px;
+  width: 220px;
 }
 
 .new-user {
@@ -41,4 +45,11 @@ form {
 .sign-up-button:hover {
   background-color: #D3D3C6;
   color: black;
+}
+
+@media only screen and (max-width: 356px) {
+  .sign-up-button {
+    width: 180px;
+    font-size: 12px;
+  }
 }

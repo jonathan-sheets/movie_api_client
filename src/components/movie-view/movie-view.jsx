@@ -50,10 +50,9 @@ export class MovieView extends React.Component {
       <Container className="wrapper container-fluid">
         <Row>
           <Col className="col-3" />
-          <div className="movie-view container-fluid align-items-center col-6">
+          <div className="movie-description">
             <img className="movie-poster" src={movie.ImagePath} />
-            <div className="movie-title">
-              <span className="label">Title: </span>
+            <div className="movie-view-title">
               <span className="value">{movie.Title}</span>
             </div>
             <div className="movie-description">
@@ -61,20 +60,31 @@ export class MovieView extends React.Component {
               <span className="value">{movie.Description}</span>
             </div>
             <div className="movie-genre">
-              <span className="label">Genre: </span>
+              <span className="genre-label">Genre: </span>
               <Link to={`/genres/${movie.Genre.Name}`}>
-                <Button variant="link">{movie.Genre.Name}</Button>
+                <Button 
+                  variant="link"
+                  className="genre-link links"
+                >
+                  {movie.Genre.Name}
+                </Button>
               </Link>
             </div>
             <div className="movie-director">
               <span className="label">Director: </span>
               <Link to={`/directors/${movie.Director.Name}`}>
-                <Button variant="link">{movie.Director.Name}</Button>
+                <Button 
+                  variant="link"
+                  className="director-link links"
+                >
+                  {movie.Director.Name}
+                </Button>
               </Link>
             </div>
             <div>
               <Button
-                variant="primary"
+                variant="dark"
+                className="movie-button favorites-button"
                 size="sm"
                 onClick={() => this.addFavorite(movie)}
               >
@@ -83,7 +93,12 @@ export class MovieView extends React.Component {
             </div>
 
             <Link to={`/`}>
-              <Button variant="link">Return</Button>
+              <Button 
+                variant="link"
+                className="back-link links"
+              >
+                Back to Movies
+              </Button>
             </Link>
           </div>
           <Col className="col-3" />

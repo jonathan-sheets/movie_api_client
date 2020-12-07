@@ -1,0 +1,38 @@
+.wrapper {
+  font-family: 'Syne Mono', monospace;
+  text-align: center;
+}
+
+.movie-poster {
+  width: 14rem;
+  margin-bottom: 20px;
+}
+
+.movie-view-title {
+  font-size: 26px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.movie-description {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.movie-director {
+  margin-top: -10px;
+  margin-bottom: 6px;
+}
+
+.links {
+  color: #ffffc4;
+}
+
+.links:hover {
+  color: #ffff58;
+}
+
+.favorites-button {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}

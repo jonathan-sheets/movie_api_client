@@ -4,110 +4,69 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
-// #0
-import { setMovies } from '../../actions/actions';
+
+import { setMovies, setUser } from '../../actions/actions';
+
 import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input';
 
-// haven't written this one yet
 import MoviesList from '../movies-list/movies-list';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { LoginView } from '../login-view/login-view';
+import LoginView from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { ProfileView } from '../profile-view/profile-view';
-import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { DirectorView } from '../director-view/director-view';
 import { UpdateView } from '../update-view/update-view';
 import { GenreView } from '../genre-view/genre-view';
 import Navbar from 'react-bootstrap/Navbar';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import './main-view.scss';
 
 
 export class MainView extends React.Component {
   constructor() {
-    // call the superclass constructor so react can initialize it
     super();
-    // Initial state is set to null
-    this.state = {
-      movies: [],
-      user: null
-    };
   }
   
+  // One of the "hooks" available in a React Component
+  componentDidMount() {
+    let accessToken = localStorage.getItem('token');
+    if (accessToken !== null) {
+      this.props.setUser(localStorage.getItem('user'));
+      this.getMovies(accessToken);
+    }
+  }
+  
+  onLoggedIn(authData) {
+    console.log(authData);
+    localStorage.setItem('token', authData.token);
+    localStorage.setItem('user', authData.user.Username);
+    this.getMovies(authData.token);
+  }
+
   getMovies(token) {
     axios.get('https://flixnet-2020.herokuapp.com/movies', {
       headers: { Authorization: `Bearer ${token}`}
     })
     .then(response => {
-      // #1
       this.props.setMovies(response.data);
     })
     .catch(function (error) {
       console.log(error);
     });
   }
-
-  // One of the "hooks" available in a React Component
-  componentDidMount() {
-    let accessToken = localStorage.getItem('token');
-    if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem('user')
-      });
-      this.getMovies(accessToken);
-    }
-  }
-
   
-  /* When a movie is clicked this function is invoked and updates the state of the `selectedMovie` *property to that movie */
-  // onMovieClick(movie) {
-  //   this.setState({
-  //     selectedMovie: movie
-  //   });
-  // }
-  
-  onLoggedIn(authData) {
-    console.log(authData);
-    this.setState({
-      user: authData.user.Username
-    });
-
-    localStorage.setItem('token', authData.token);
-    localStorage.setItem('user', authData.user.Username);
-    this.getMovies(authData.token);
-  }
-
   logOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    this.setState({
-      user: null,
-    });
     console.log('logout successful');
     alert('You have been successfully logged out');
     window.open('/', '_self');
   }
 
   render() {
-    // If the state isn't initialized, this will throw on runtime
-    // before the data is initally loaded
-    // const { movies, user } = this.state;
 
-    // #2
-    let { movies, visibilityFilter } = this.props;
-    let { user } = this.state;
-  
-
-    /* If there is no user, the LoginView is rendered.  If there is a user logged in, the user details are *passed as a prop to the LoginView */
-
-    // Before the movies have been loaded
-
-    // if (!movies) return <div className="main-view"/>;
+    let { movies, visibilityFilter, user } = this.props;
 
     return (
       <Router>
@@ -116,11 +75,10 @@ export class MainView extends React.Component {
           expand="lg"
           sticky="top"
           variant="dark"
-          expand="lg"
-          className="navbar shadow-sm mb-5"
+          className="navbar shadow-sm mb-5 py-0"
         >
           <Navbar.Brand
-            href="http://localhost:1234"
+            href="https://flixnet2020.netlify.app"
             className="navbar-brand"
           >
           FlixNET
@@ -177,14 +135,6 @@ export class MainView extends React.Component {
                     Movies
                   </Button>
                 </Link>
-                <Link to={`/about`}>
-                  <Button 
-                    variant="link"
-                    className="navbar-link"
-                  >
-                    About
-                  </Button>
-                </Link>
               </ul>
             )}
           </Navbar.Collapse>
@@ -197,11 +147,7 @@ export class MainView extends React.Component {
               return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
               return <MoviesList movies={movies}/>;
           }} />
-            {/* return ( */}
-            {/* <div className="row d-flex mt-4 ml-2"> */}
-            {/* {movies.map(m => <MovieCard key={m._id} movie={m}/> */}
-            {/* )} */}
-            {/* </div> */}
+            
         <Route 
           path="/register" 
           render={() => <RegistrationView />} 
@@ -264,10 +210,9 @@ export class MainView extends React.Component {
   }
 }
 
-// #3
 let mapStateToProps = state => {
-  return { movies: state.movies }
-}
+  return { movies: state.movies, user: state.user };
+};
 
 // #4
-export default connect(mapStateToProps, { setMovies } )(MainView);
+export default connect(mapStateToProps, { setMovies, setUser } )(MainView);

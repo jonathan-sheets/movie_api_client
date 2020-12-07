@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setUser } from '../../actions/actions';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import './login-view.scss';
 
-export function LoginView(props) {
+function LoginView(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
 
@@ -22,18 +24,21 @@ export function LoginView(props) {
     // Send a request to the server for authentication
     axios.post('https://flixnet-2020.herokuapp.com/login', {
       Username: username,
-      Password: password
+      Password: password,
     })
-    .then(response => {
+    .then((response) => {
       const data = response.data;
       props.onLoggedIn(data);
+
+      props.setUser(username); 
     })
-    .catch(e => {
+    .catch((e) => {
       console.log('no such user')
       alert('Invalid username or password');
     });
   };
 }
+
 
   const formValidation = () => {
     const usernameErr = {};
@@ -61,7 +66,7 @@ export function LoginView(props) {
   return (
     <Container>
       <div className="login-heading">
-      <h2>Welcome to FlixNET</h2>
+      <h2>WELCOME TO FlixNET</h2>
       </div>
       <br />
       
@@ -116,9 +121,7 @@ export function LoginView(props) {
 }
 
 LoginView.propTypes = {
-  user: PropTypes.shape({
-    Username: PropTypes.string.isRequired,
-    Password: PropTypes.string.isRequired
-  }),
   onLoggedIn: PropTypes.func.isRequired,
 };
+
+export default connect(null, { setUser })(LoginView);

@@ -9,6 +9,11 @@ form {
 
 .register-heading {
   text-align: center;
+  text-decoration: underline;
+  font-size: 22px;
+  text-transform: uppercase;
+  margin-top: -30px;
+  margin-bottom: 12px;
 }
 
 .form-field {
@@ -17,6 +22,19 @@ form {
 }
 
 .existing-user {
-  width: 200px;
+  width: 220px;
   float: right;
+}
+
+@media only screen and (max-width: 356px) {
+  .existing-user {
+    width: 180px;
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 356px) {
+  .sign-in-button {
+    font-size: 12px;
+  }
 }
