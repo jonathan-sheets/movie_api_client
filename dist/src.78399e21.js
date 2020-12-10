@@ -54402,7 +54402,8 @@ function UpdateView(props) {
         alert("Your profile was updated successfully");
         window.open("/", "_self");
       }).catch(function (e) {
-        console.log(e);
+        var error = e.response.data.errors[0].msg;
+        console.log(error);
       });
     }
 
@@ -54420,6 +54421,12 @@ function UpdateView(props) {
       isValid = false;
     }
 
+    if (/[^0-9a-zA-Z]/.test(username)) {
+      // It has an invalid character
+      usernameErr.username = 'Username must not contain special characters';
+      isValid = false;
+    }
+
     if (password.trim().length < 1) {
       passwordErr.passwordMissing = 'You must enter a password';
       isValid = false;
@@ -54434,6 +54441,10 @@ function UpdateView(props) {
     setPasswordErr(passwordErr);
     setEmailErr(emailErr);
     return isValid;
+  };
+
+  var onChange = function onChange(event) {
+    formValidation.onChangeStatus(event.target.username, event.target.value);
   };
 
   return _react.default.createElement(_Container.default, null, _react.default.createElement("div", {
@@ -55117,7 +55128,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55616" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51988" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

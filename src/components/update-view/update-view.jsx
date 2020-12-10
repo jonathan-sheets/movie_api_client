@@ -50,7 +50,8 @@ export function UpdateView(props) {
         window.open("/", "_self");
       })
       .catch((e) => {
-        console.log(e);
+        let error = e.response.data.errors[0].msg
+        console.log(error);
       });
   };
 }
@@ -65,6 +66,11 @@ const formValidation = () => {
     usernameErr.usernameShort = 'Username must be at least 5 characters';
     isValid = false;
   }
+  if (/[^0-9a-zA-Z]/.test(username)) {
+    // It has an invalid character
+    usernameErr.username = 'Username must not contain special characters';
+    isValid = false;
+}
 
   if (password.trim().length < 1) {
     passwordErr.passwordMissing = 'You must enter a password';
@@ -81,6 +87,9 @@ const formValidation = () => {
   setEmailErr(emailErr);
   return isValid;
 }
+  const onChange = (event) => {
+    formValidation.onChangeStatus(event.target.username, event.target.value);
+  };
 
   return (
     <Container>
